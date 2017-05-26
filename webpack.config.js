@@ -1,10 +1,11 @@
 const path = require('path');
 const webpack=require('webpack');
+const autoprefixer=require('autoprefixer');
 const HtmlWebpackPlugin=require('html-webpack-plugin');
 const OpenBrowserPlugin=require('open-browser-webpack-plugin');
 
 module.exports = {
-  entry: './app/main.js',
+  entry: path.resolve(__dirname,'app/main.js'),
   output: {
     filename: 'bundle.js'
   },
@@ -32,14 +33,14 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               plugins: function(){
-                return [require('autoprefixer')];
+                return [autoprefixer];
               }
             }
           }
         ]
       },
       {
-        test: /\.scss/,
+        test: /\.scss$/,
         exclude: /node_modules/,
         use: [
           'style-loader',
@@ -53,7 +54,7 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               plugins: function(){
-                return [require('autoprefixer')];
+                return [autoprefixer];
               }
             }
           },
