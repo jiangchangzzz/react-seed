@@ -31,14 +31,21 @@ module.exports = {
         use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-                'css-loader',
+                 {
+                  loader: 'css-loader',
+                  options: {
+                    modules: true,
+                    importLoaders: 1,
+                    localIdentName: '[name]__[local]___[hash:base64:5]'
+                  }
+                },
                 {
-                    loader: 'postcss-loader',
-                    options: {
-                        plugins: function(){
-                            return [autoprefixer];
-                        }
+                  loader: 'postcss-loader',
+                  options: {
+                    plugins: function(){
+                      return [autoprefixer];
                     }
+                  }
                 }
             ]
         })
@@ -49,7 +56,14 @@ module.exports = {
         use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-                'css-loader',
+                {
+                  loader: 'css-loader',
+                  options: {
+                    modules: true,
+                    importLoaders: 1,
+                    localIdentName: '[name]__[local]___[hash:base64:5]'
+                  }
+                },
                 {
                     loader: 'postcss-loader',
                     options: {

@@ -22,11 +22,18 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         use: [
-          'style-loader',
+          {
+            loader: 'style-loader',
+            options: {
+              sourceMap: true
+            }
+          },
           {
             loader: 'css-loader',
             options: {
-              modules: true
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[name]__[local]___[hash:base64:5]'
             }
           },
           {
@@ -43,11 +50,18 @@ module.exports = {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [
-          'style-loader',
+          {
+            loader: 'style-loader',
+            options: {
+              sourceMap: true
+            }
+          },
           {
             loader: 'css-loader',
             options: {
-              modules: true
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[name]__[local]___[hash:base64:5]'
             }
           },
           {
@@ -55,10 +69,16 @@ module.exports = {
             options: {
               plugins: function(){
                 return [autoprefixer];
-              }
+              },
+              sourceMap: true
             }
           },
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
         ]
       }
     ]
