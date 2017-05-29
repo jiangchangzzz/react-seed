@@ -7,7 +7,8 @@ const OpenBrowserPlugin=require('open-browser-webpack-plugin');
 module.exports = {
   entry: path.resolve(__dirname,'app/main.js'),
   output: {
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
     rules: [
