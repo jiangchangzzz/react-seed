@@ -1,10 +1,11 @@
 const fs=require('fs');
 const Koa=require('koa');
 const Router=require('koa-router');
+const KoaBody=require('koa-body');
 
 const app=new Koa();
-
-let router=new Router();
+const router=new Router();
+const koaBody=new KoaBody();
 
 router.get('/',async (context)=>{
     let html='<h1>Home</h1>'
@@ -16,7 +17,7 @@ router.get('/about',async (context)=>{
     context.body=html;
 });
 
-router.post('/api/post',async (context)=>{
+router.post('/api/post',koaBody,async (context)=>{
     console.log(context.request.body);
     context.body=JSON.stringify(context.request.body);
 });

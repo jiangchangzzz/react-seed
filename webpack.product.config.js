@@ -7,7 +7,7 @@ const ExtractTextPlugin=require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: path.resolve(__dirname,'app/main.js'),
+    app: path.resolve(__dirname,'app/index.js'),
     vendor: Object.keys(package.dependencies)
   },
   output: {

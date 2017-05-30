@@ -5,7 +5,7 @@ const HtmlWebpackPlugin=require('html-webpack-plugin');
 const OpenBrowserPlugin=require('open-browser-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname,'app/main.js'),
+  entry: path.resolve(__dirname,'app/index.js'),
   output: {
     filename: 'bundle.js',
     publicPath: '/'
@@ -107,6 +107,13 @@ module.exports = {
   ],
 
   devServer: {
+    //使用webpack代理，转发请求到mock服务器上
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        secure: false
+      }
+    },
     historyApiFallback: true, 
     inline: true, 
     hot: true
