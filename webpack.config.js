@@ -15,72 +15,53 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
+        use: ['babel-loader']
+      },
+      {
+        test: /\.css$/,
+        exclude: [/node_modules/, path.resolve(__dirname,'app/static/css')],
         use: [
-          'babel-loader'
+          {loader: 'style-loader'},
+          {loader: 'css-loader', options: {modules: true, importLoaders: 1, localIdentName: '[name]__[local]___[hash:base64:5]'}},
+          {loader: 'postcss-loader', options: {plugins: function(){return [autoprefixer];}}}
         ]
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
+        include: path.resolve(__dirname,'app/static/css'),
         use: [
-          {
-            loader: 'style-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]___[hash:base64:5]'
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: function(){
-                return [autoprefixer];
-              }
-            }
-          }
+          {loader: 'style-loader'},
+          {loader: 'css-loader'},
+          {loader: 'postcss-loader', options: {plugins: function(){return [autoprefixer];}}}
         ]
       },
       {
         test: /\.scss$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, path.resolve(__dirname,'app/static/css')],
         use: [
-          {
-            loader: 'style-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]___[hash:base64:5]'
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: function(){
-                return [autoprefixer];
-              },
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
-          }
+          {loader: 'style-loader'},
+          {loader: 'css-loader', options: {modules: true, importLoaders: 1, localIdentName: '[name]__[local]___[hash:base64:5]'}},
+          {loader: 'postcss-loader', options: {plugins: function(){return [autoprefixer];}}},
+          {loader: 'sass-loader'}
         ]
+      },
+      {
+        test: /\.scss$/,
+        include: path.resolve(__dirname,'app/static/css'),
+        use: [
+          {loader: 'style-loader'},
+          {loader: 'css-loader'},
+          {loader: 'postcss-loader', options: {plugins: function(){return [autoprefixer];}}},
+          {loader: 'sass-loader'}
+        ]
+      },
+      {
+        test: /\.(png|gif|jpg|jpeg|bmp)$/i,
+        use: 'url-loader?limit=5000'
+      },
+      {
+        test: /\.(woff|woff2|svg|ttf|eot)($|\?)/i,
+        use: 'url-loader?limit=5000'
       }
     ]
   },

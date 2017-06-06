@@ -4,7 +4,7 @@ class Header extends Component {
     render() {
         return (
             <div>
-                Header
+                <i className="icon-grav"></i>Header
             </div>
         );
     }

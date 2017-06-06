@@ -21,60 +21,61 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: [
-          'babel-loader'
-        ]
+        use: ['babel-loader']
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, path.resolve(__dirname,'app/static/css')],
         use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-                 {
-                  loader: 'css-loader',
-                  options: {
-                    modules: true,
-                    importLoaders: 1,
-                    localIdentName: '[name]__[local]___[hash:base64:5]'
-                  }
-                },
-                {
-                  loader: 'postcss-loader',
-                  options: {
-                    plugins: function(){
-                      return [autoprefixer];
-                    }
-                  }
-                }
-            ]
+          fallback: 'style-loader',
+          use: [
+            {loader: 'css-loader', options: {modules: true, importLoaders: 1, localIdentName: '[name]__[local]___[hash:base64:5]'}},
+            {loader: 'postcss-loader', options: {plugins: function(){return [autoprefixer];}}}
+          ]
+        })
+      },
+      {
+        test: /\.css$/,
+        include: path.resolve(__dirname,'app/static/css'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {loader: 'css-loader'},
+            {loader: 'postcss-loader', options: {plugins: function(){return [autoprefixer];}}}
+          ]
         })
       },
       {
         test: /\.scss$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, path.resolve(__dirname,'app/static/css')],
         use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-                {
-                  loader: 'css-loader',
-                  options: {
-                    modules: true,
-                    importLoaders: 1,
-                    localIdentName: '[name]__[local]___[hash:base64:5]'
-                  }
-                },
-                {
-                    loader: 'postcss-loader',
-                    options: {
-                        plugins: function(){
-                            return [autoprefixer];
-                        }
-                    }
-                },
-                'sass-loader'
-            ]
+          fallback: 'style-loader',
+          use: [
+            {loader: 'css-loader', options: {modules: true, importLoaders: 1, localIdentName: '[name]__[local]___[hash:base64:5]'}},
+            {loader: 'postcss-loader', options: {plugins: function(){return [autoprefixer];}}},
+            {loader: 'sass-loader'}
+          ]
         })
+      },
+      {
+        test: /\.scss$/,
+        include: path.resolve(__dirname,'app/static/css'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {loader: 'css-loader'},
+            {loader: 'postcss-loader', options: {plugins: function(){return [autoprefixer];}}},
+            {loader: 'sass-loader'}
+          ]
+        })
+      },
+      {
+        test: /\.(png|gif|jpg|jpeg|bmp)$/i,
+        use: 'url-loader?limit=5000&name=img/[name].[chunkhash:8].[ext]'
+      },
+      {
+        test: /\.(woff|woff2|svg|ttf|eot)($|\?)/i,
+        use: 'url-loader?limit=5000&name=fonts/[name].[ext]'
       }
     ]
   },

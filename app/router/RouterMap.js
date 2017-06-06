@@ -12,14 +12,14 @@ import NotFound from '../containers/NotFound';
 class RouterMap extends Component{
     render(){
         return (
-            <Router>
-                <App>
+            <App>
+                <Router>
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route component={NotFound}/>
                     </Switch>
-                </App>
-            </Router>
+                </Router>
+            </App>
         );
     }
 }
